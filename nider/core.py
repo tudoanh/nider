@@ -171,7 +171,7 @@ class MultilineTextUnit(AlignMixin, MultilineText):
         Sets textwraped unit's text that will be used in the image and also
         attachs header height to the obj instance.
         '''
-        self.wrapped_lines = textwrap.wrap(self.text, width=self.text_width)
+        self.wrapped_lines = textwrap.wrap(self.text, width=self.text_width, replace_whitespace=False)
         self._set_height()
 
     def _set_height(self):
@@ -184,4 +184,4 @@ class MultilineTextUnit(AlignMixin, MultilineText):
             _, h = self.font.getsize(line)
             self.height += h
 
-        self.height += (len(self.wrapped_lines) - 1) * self.line_padding
+        self.height += (len(self.wrapped_lines) + self.text.count('\n') * 2 + 1) * self.line_padding
